@@ -21,4 +21,5 @@ public record DataBillToPay(
 
         @NotBlank(message = "O campo 'situacao' não pode ser vazio")
         String situacao) {
+
 }

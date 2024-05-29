@@ -2,9 +2,12 @@ package com.totvs.desafiobackendtotvs;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @RestController
@@ -19,14 +22,20 @@ public class BillToPayController {
     }
 
     @PostMapping
-    public ResponseEntity<Bill> createConta(@RequestBody @Valid DataBillToPay dataBillToPay) {
+    public ResponseEntity<Bill> createBillsToPay(@RequestBody @Valid DataBillToPay dataBillToPay) {
         billToPay.newBill(new Bill(dataBillToPay));
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Bill> getContaById(@PathVariable Integer id) {
+    public ResponseEntity<Bill> getBillsToPayById(@PathVariable Integer id) {
         Optional<Bill> bill = billToPay.findById(id);
         return bill.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<BillToPayList>> getBillsToPayByFilter(@RequestParam LocalDate dataVencimento,
+                                                                 @RequestParam String descricao, Pageable pageable) {
+        return ResponseEntity.ok(billToPay.findByFilters(dataVencimento, descricao, pageable).map(BillToPayList::new));
     }
 }

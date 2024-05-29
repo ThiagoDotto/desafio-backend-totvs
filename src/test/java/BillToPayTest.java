@@ -6,9 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,7 +50,7 @@ public class BillToPayTest {
     }
 
     @Test
-    void testFindById() {
+    void shouldFindBillToPayById() {
         Bill bill = new Bill();
         bill.setId(1);
 
@@ -55,5 +60,27 @@ public class BillToPayTest {
 
         assertTrue(foundBill.isPresent());
         assertEquals(1, foundBill.get().getId());
+    }
+
+    @Test
+    void shouldFindBillToPayByFilters() {
+        Bill bill1 = new Bill();
+        bill1.setId(1);
+
+        Bill bill2 = new Bill();
+        bill2.setId(2);
+
+        Pageable pageable = PageRequest.of(0, 10);
+        LocalDate dataVencimento = LocalDate.of(2024, 05, 29);
+        String descricao = "Test";
+
+        when(billToPayRepositoryMock.findByDataVencimentoAndDescricaoContaining(dataVencimento, descricao, pageable))
+                .thenReturn(new PageImpl<>(Arrays.asList(bill1, bill2)));
+
+        Page<Bill> byFilters = billToPay.findByFilters(dataVencimento, descricao, pageable);
+        assertEquals(2, byFilters.getTotalElements());
+        assertEquals(1, byFilters.getContent().get(0).getId());
+        assertEquals(2, byFilters.getContent().get(1).getId());
+
     }
 }
