@@ -1,5 +1,6 @@
 import com.totvs.desafiobackendtotvs.Bill;
 import com.totvs.desafiobackendtotvs.BillToPay;
+import com.totvs.desafiobackendtotvs.BillToPayDataUpdate;
 import com.totvs.desafiobackendtotvs.BillToPayRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -93,26 +94,24 @@ public class BillToPayTest {
         assertEquals(BigDecimal.valueOf(1000), totalPaid);
     }
 
-//
-//    @Test
-//    void shouldUpdateBillToPay() {
-//        Bill existingBill = new Bill();
-//        existingBill.setId(1);
-//        existingBill.setDescricao("Old Description");
-//
-//        Bill updatedBill = new Bill();
-//        updatedBill.setId(1);
-//        updatedBill.setDescricao("New Description");
-//
-//        when(billToPayRepositoryMock.findById(1)).thenReturn(Optional.of(existingBill));
+
+    @Test
+    void shouldUpdateBillToPay() {
+        Bill existingBill = new Bill();
+        existingBill.setId(1);
+        existingBill.setDescricao("Old Description");
+
+        BillToPayDataUpdate updatedBill = new BillToPayDataUpdate(LocalDate.now(), LocalDate.now(), BigDecimal.TEN, "New Description", null);
+
+        when(billToPayRepositoryMock.findById(1)).thenReturn(Optional.of(existingBill));
 //        when(billToPayRepositoryMock.save(updatedBill)).thenReturn(updatedBill);
-//
-//        Bill result = billToPay.update(updatedBill);
-//
+
+        billToPay.update(1, updatedBill);
+
 //        assertNotNull(result);
 //        assertEquals("New Description", result.getDescricao());
-//        verify(billToPayRepositoryMock, times(1)).findById(1);
+        verify(billToPayRepositoryMock, times(1)).findById(1);
 //        verify(billToPayRepositoryMock, times(1)).save(updatedBill);
-//    }
+    }
 
 }

@@ -51,4 +51,10 @@ public class BillToPayController {
         billToPay.update(id, billToPayDataUpdate);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}/situacao")
+    public ResponseEntity<Bill> updateBill(@PathVariable("id") Integer id, @RequestBody BillToPaySituationUpdate billToPayDataUpdate) {
+        billToPay.updateSituation(id, billToPayDataUpdate);
+        return ResponseEntity.ok().build();
+    }
 }

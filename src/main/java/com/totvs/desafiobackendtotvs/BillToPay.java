@@ -46,4 +46,13 @@ public class BillToPay {
             bill.updateData(billToPayDataUpdate);
         }
     }
+
+    @Transactional
+    public void updateSituation(Integer id, BillToPaySituationUpdate billToPaySituationUpdate) {
+        Optional<Bill> optionalConta = billToPayRepository.findById(id);
+        if (optionalConta.isPresent()) {
+            Bill bill = optionalConta.get();
+            bill.updateSituation(billToPaySituationUpdate);
+        }
+    }
 }

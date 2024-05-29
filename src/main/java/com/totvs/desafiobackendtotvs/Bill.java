@@ -43,14 +43,6 @@ public class Bill {
         this.situacao = dataBillToPay.situacao();
     }
 
-//    public Bill(BillToPayDataUpdate billToPayDataUpdate) {
-//        this.id = billToPayDataUpdate.id();
-//        this.dataPagamento = billToPayDataUpdate.dataPagamento();
-//        this.valor = billToPayDataUpdate.valor();
-//        this.descricao = billToPayDataUpdate.descricao();
-//        this.situacao = billToPayDataUpdate.situacao();
-//    }
-
     public void updateData(BillToPayDataUpdate updatedBill) {
         if (updatedBill.dataVencimento() != null) {
             this.dataVencimento = updatedBill.dataVencimento();
@@ -66,6 +58,12 @@ public class Bill {
         }
         if (updatedBill.situacao() != null) {
             this.situacao = updatedBill.situacao();
+        }
+    }
+
+    public void updateSituation(BillToPaySituationUpdate billToPaySituationUpdate) {
+        if (billToPaySituationUpdate.situacao() != null) {
+            this.situacao = billToPaySituationUpdate.situacao();
         }
     }
 }
