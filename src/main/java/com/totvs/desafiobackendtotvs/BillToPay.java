@@ -1,8 +1,7 @@
 package com.totvs.desafiobackendtotvs;
 
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BillToPay {
@@ -13,11 +12,8 @@ public class BillToPay {
         this.billToPayRepository = billToPayRepository;
     }
 
+    @Transactional
     public void newBill(Bill bill) {
-        Optional<Bill> billExisting = billToPayRepository.findById(bill.getId());
-        if (billExisting.isPresent()) {
-            throw new IllegalArgumentException();
-        }
         billToPayRepository.save(bill);
     }
 }
