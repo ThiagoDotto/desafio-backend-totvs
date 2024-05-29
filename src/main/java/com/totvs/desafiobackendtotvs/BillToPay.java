@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -29,5 +30,20 @@ public class BillToPay {
 
     public Page<Bill> findByFilters(LocalDate dataVencimento, String descricao, Pageable pageable) {
         return billToPayRepository.findByDataVencimentoAndDescricaoContaining(dataVencimento, descricao, pageable);
+    }
+
+    public BigDecimal getTotalPaid(LocalDate startDate, LocalDate endDate) {
+        return billToPayRepository.sumTotalPaidBetweenDates(startDate, endDate);
+    }
+
+
+    @Transactional
+    public void update(Integer id, BillToPayDataUpdate billToPayDataUpdate) {
+
+        Optional<Bill> optionalConta = billToPayRepository.findById(id);
+        if (optionalConta.isPresent()) {
+            Bill bill = optionalConta.get();
+            bill.updateData(billToPayDataUpdate);
+        }
     }
 }

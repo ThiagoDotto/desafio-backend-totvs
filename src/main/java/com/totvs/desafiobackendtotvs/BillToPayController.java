@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -35,7 +36,19 @@ public class BillToPayController {
 
     @GetMapping
     public ResponseEntity<Page<BillToPayList>> getBillsToPayByFilter(@RequestParam LocalDate dataVencimento,
-                                                                 @RequestParam String descricao, Pageable pageable) {
+                                                                     @RequestParam String descricao, Pageable pageable) {
         return ResponseEntity.ok(billToPay.findByFilters(dataVencimento, descricao, pageable).map(BillToPayList::new));
+    }
+
+    @GetMapping("/total-paid")
+    public ResponseEntity<BigDecimal> getTotalPaid(@RequestParam("dataInicio") LocalDate startDate, @RequestParam("dataFim") LocalDate endDate) {
+        BigDecimal totalPaid = billToPay.getTotalPaid(startDate, endDate);
+        return ResponseEntity.ok(totalPaid);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Bill> updateBill(@PathVariable("id") Integer id, @RequestBody BillToPayDataUpdate billToPayDataUpdate) {
+        billToPay.update(id, billToPayDataUpdate);
+        return ResponseEntity.ok().build();
     }
 }
