@@ -1,5 +1,6 @@
 package com.totvs.desafiobackendtotvs;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,7 @@ public class BillToPayController {
     }
 
     @PostMapping
-    public ResponseEntity<Bill> createConta(@RequestBody DataBillToPay dataBillToPay) {
-//        System.out.println(dataBillToPay);
+    public ResponseEntity<Bill> createConta(@RequestBody @Valid DataBillToPay dataBillToPay) {
         billToPay.newBill(new Bill(dataBillToPay));
         return ResponseEntity.ok().build();
     }
