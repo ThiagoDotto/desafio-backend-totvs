@@ -3,6 +3,8 @@ package com.totvs.desafiobackendtotvs;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class BillToPay {
 
@@ -10,6 +12,10 @@ public class BillToPay {
 
     public BillToPay(BillToPayRepository billToPayRepository) {
         this.billToPayRepository = billToPayRepository;
+    }
+
+    public Optional<Bill> findById(Integer id) {
+        return billToPayRepository.findById(id);
     }
 
     @Transactional
