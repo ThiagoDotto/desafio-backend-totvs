@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 //@Repository
 public class BillToPayRepository {
 
+    Logger logger = Logger.getLogger(getClass().getName());
+
     List<Bill> listBill;
 
     public BillToPayRepository() {
@@ -33,7 +35,7 @@ public class BillToPayRepository {
     }
 
     public Optional<Bill> findByID(Bill bill) {
-
+        logger.info("Busca de conta no banco");
         return this.listBill
                 .stream()
                 .filter(billLocal -> billLocal.getId() == bill.getId())
@@ -42,5 +44,6 @@ public class BillToPayRepository {
 
     public void save(Bill bill) {
         this.listBill.add(bill);
+        logger.info("Conta salva com sucesso!");
     }
 }
