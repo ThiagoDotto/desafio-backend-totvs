@@ -1,5 +1,9 @@
-package com.totvs.desafiobackendtotvs;
+package com.totvs.desafiobackendtotvs.application.service;
 
+import com.totvs.desafiobackendtotvs.domain.model.Bill;
+import com.totvs.desafiobackendtotvs.BillToPayDataUpdate;
+import com.totvs.desafiobackendtotvs.BillToPayRepository;
+import com.totvs.desafiobackendtotvs.BillToPaySituationUpdate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
