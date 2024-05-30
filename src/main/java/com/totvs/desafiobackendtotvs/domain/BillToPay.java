@@ -1,6 +1,9 @@
-package com.totvs.desafiobackendtotvs;
+package com.totvs.desafiobackendtotvs.domain;
 
 
+import com.totvs.desafiobackendtotvs.application.billtopay.dto.BillToPayData;
+import com.totvs.desafiobackendtotvs.application.billtopay.dto.BillToPayDataUpdate;
+import com.totvs.desafiobackendtotvs.application.billtopay.dto.BillToPaySituationUpdate;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Table(name = "conta")
-public class Bill {
+public class BillToPay {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,15 +35,16 @@ public class Bill {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "situacao", nullable = false)
-    private String situacao;
+    private Situation situation;
 
-    public Bill(DataBillToPay dataBillToPay) {
-        this.dataVencimento = dataBillToPay.dataVencimento();
-        this.dataPagamento = dataBillToPay.dataPagamento();
-        this.valor = dataBillToPay.valor();
-        this.descricao = dataBillToPay.descricao();
-        this.situacao = dataBillToPay.situacao();
+    public BillToPay(BillToPayData billToPayData) {
+        this.dataVencimento = billToPayData.dataVencimento();
+        this.dataPagamento = billToPayData.dataPagamento();
+        this.valor = billToPayData.valor();
+        this.descricao = billToPayData.descricao();
+        this.situation = billToPayData.situacao();
     }
 
     public void updateData(BillToPayDataUpdate updatedBill) {
@@ -57,13 +61,13 @@ public class Bill {
             this.descricao = updatedBill.descricao();
         }
         if (updatedBill.situacao() != null) {
-            this.situacao = updatedBill.situacao();
+            this.situation = updatedBill.situacao();
         }
     }
 
     public void updateSituation(BillToPaySituationUpdate billToPaySituationUpdate) {
         if (billToPaySituationUpdate.situacao() != null) {
-            this.situacao = billToPaySituationUpdate.situacao();
+            this.situation = billToPaySituationUpdate.situacao();
         }
     }
 }

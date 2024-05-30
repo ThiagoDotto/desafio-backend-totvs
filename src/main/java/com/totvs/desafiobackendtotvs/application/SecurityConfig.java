@@ -1,4 +1,4 @@
-package com.totvs.desafiobackendtotvs.application.service;
+package com.totvs.desafiobackendtotvs.application;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,12 +1,13 @@
-package com.totvs.desafiobackendtotvs;
+package com.totvs.desafiobackendtotvs.application.billtopay.dto;
 
+import com.totvs.desafiobackendtotvs.domain.Situation;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public record DataBillToPay(
+public record BillToPayData(
 
         @NotNull(message = "O campo 'dataVencimento' não pode ser vazio")
         LocalDate dataVencimento,
@@ -20,6 +21,6 @@ public record DataBillToPay(
         String descricao,
 
         @NotBlank(message = "O campo 'situacao' não pode ser vazio")
-        String situacao) {
+        Situation situacao) {
 
 }
