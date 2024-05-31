@@ -1,3 +1,5 @@
+package com.totvs.desafiobackendtotvs;
+
 import com.totvs.desafiobackendtotvs.application.billtopay.BillToPayService;
 import com.totvs.desafiobackendtotvs.application.billtopay.dto.BillToPayDataUpdate;
 import com.totvs.desafiobackendtotvs.domain.BillToPay;
