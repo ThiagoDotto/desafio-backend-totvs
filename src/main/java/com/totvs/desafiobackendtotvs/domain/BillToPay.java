@@ -47,6 +47,14 @@ public class BillToPay {
         this.situation = billToPayData.situacao();
     }
 
+    public BillToPay(String[] data) {
+        this.dataVencimento = LocalDate.parse(data[0]);
+        this.dataPagamento = data[1].isEmpty() ? null : LocalDate.parse(data[1]);
+        this.valor = new BigDecimal(data[2]);
+        this.descricao = data[3];
+        this.situation = Situation.valueOf(data[4]);
+    }
+
     public void updateData(BillToPayDataUpdate updatedBill) {
         if (updatedBill.dataVencimento() != null) {
             this.dataVencimento = updatedBill.dataVencimento();
